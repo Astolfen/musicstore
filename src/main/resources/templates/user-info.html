@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>MusicStore</title>
+</head>
+<body>
+<h1>Store</h1>
+<hr>
+<h3>info fro prodovec</h3>
+<b>mail : </b><span th:text=" ${user.email}"></span> <br>
+<b>Номер телефона : </b><span th:text=" ${user.phoneNumber}"></span> <br>
+<h4>tovar pols  <span th:text=" ${user.name}"></span></h4>
+<div th:each="product : ${products}">
+    <p><b th:text="${product.title}"/> <span th:text="${product.price}"> руб.</span> <a
+            th:href="@{/product/{id}(id=${product.id})}">Подробнее....</a></p>
+</div>
+</body>
+</html>

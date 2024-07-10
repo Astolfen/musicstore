@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>MusicStore</title>
+</head>
+<body>
+<h1>Store</h1>
+<hr>
+<h4>Info tovara</h4>
+<div th:each="img : ${ims}">
+    <div>
+        <img th:src="@{/images/{id} (id =${img.id})}" height="60px" alt="Image"/><br><br>
+    </div>
+</div>
+
+
+<b>Title : </b><span th:text=" ${product.title}"></span> <br>
+<b>description : </b><span th:text=" ${product.description}"></span> <br>
+<b>price : </b><span th:text=" ${product.price}"></span> <br>
+<b>Тип : </b><span th:text=" ${product.getProductType().getRussianName()}"></span> <br>
+<b>city : </b><span th:text=" ${product.city}"></span> <br>
+<b>author : </b><a th:href="@{/user/{id}(id=${product.user.id})}"><span th:text=" ${product.user.name}"/></a> <br>
+<!--<hr>-->
+<!--<form th:action="@{/product/delete/{id}(id=${product.id})}" method="post">-->
+<!--    <input type="submit" value="удалить товар"/>-->
+<!--</form>-->
+</body>
+</html>

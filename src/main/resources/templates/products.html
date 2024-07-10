@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>MusicStore </title>
+</head>
+<body>
+<h1>Store </h1>
+<hr>
+<div th:if="${user.email}">
+    <h3>Имя пользователя: <span th:text="${user.name}"/></h3>
+    <form th:action="@{/logout}" method="post">
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+        <input type="submit" value="Выход"/>
+    </form>
+    <div th:if="${user.isAdmin()}">
+        <a th:href="@{/admin}">Панель админа</a>
+    </div>
+</div>
+<div th:unless="${user.email}">
+    <a th:href="@{/login}">Войти</a>
+</div>
+
+<div th:if="${user.email}">
+    <hr>
+    <h3>Создать новый товар</h3>
+    <form th:action="@{/product/create}" method="post" enctype="multipart/form-data">
+        Название: <input type="text" name="title"/><br><br>
+        Описание: <input type="text" name="description"/><br><br>
+        Цена: <input type="number" name="price"/><br><br>
+        Город: <input type="text" name="city"/><br><br>
+        Первая фотография <input type="file" name="file1"/><br><br>
+        Вторая фотография <input type="file" name="file2"/><br><br>
+        Третья фотография <input type="file" name="file3"/><br><br>
+
+        Тип продукта:
+        <select name="productType" required>
+            <option th:each="type : ${productTypes}"
+                    th:value="${type}"
+                    th:text="${type.getRussianName()}"></option>
+        </select>
+        <br><br>
+
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+        <input type="submit" value="Добавить товар"/>
+    </form>
+</div>
+
+<h4>Товары</h4>
+<form action="/" method="get">
+    <label for="title">Название:</label>
+    <input type="text" id="title" name="title" th:value="${title}"/><br><br>
+    <label for="productType">Фильтр по типу:</label>
+    <select id="productType" name="productType">
+        <option value="">Все типы продуктов</option>
+        <option th:each="type : ${productTypes}"
+                th:value="${type}"
+                th:text="${type.getRussianName()}"></option>
+    </select>
+    <button type="submit">Применить</button>
+</form>
+
+<div th:if="${#lists.isEmpty(products)}">
+    <h3>Товаров нет</h3>
+</div>
+<div th:each="product : ${products}">
+    <div>
+        <p>
+            <img th:src="@{/images/{id} (id =${product.getPreviewImageId()})}" height="60px" alt="Image"/><br><br>
+            <b th:text="${product.title}"/> <span th:text="${product.price}"> руб.</span> <a
+                th:href="@{/product/{id}(id=${product.id})}">Подробнее....</a>
+        </p>
+    </div>
+</div>
+</body>
+</html>

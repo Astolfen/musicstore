@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>MusicStore </title>
+</head>
+<body>
+<h1>Store </h1>
+<hr>
+<h3>Реадктировть пользователя <span th:text="${user.name}"></span></h3>
+<div>
+    <form th:action="@{/admin/user/edit}" method="post">
+        <div th:each="role : ${roles}">
+            <div>
+                <input type="radio" th:name="selectedRole" th:value="${role}" th:checked="${user.roles.contains(role)}">
+                <span th:text="${role}"></span>
+            </div>
+<!--            <div>-->
+<!--                <input type="checkbox" th:name="${role}" th:checked="${user.roles.contains(role)}"> <span th:text="${role}"></span>-->
+<!--            </div>-->
+        </div>
+        <input type="hidden" th:name="userId" th:value="${user.id}"/>
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+        <input type="submit" value="Сохранить"/>
+    </form>
+</div>
+</body>
+</html>
