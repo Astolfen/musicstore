@@ -22,12 +22,15 @@ public class Image {
 
     private String name;
 
+    @Column(name = "original_file_name")
     private String originalFileName;
 
     private Long size;
 
+    @Column(name = "content_type")
     private String contentType;
 
+    @Column(name = "is_preview_image")
     private boolean isPreviewImage;
 
     @Column(name = "file_path")

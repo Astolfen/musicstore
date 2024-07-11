@@ -43,13 +43,6 @@ public class Product {
 
     private Long previewImageId;
 
-    private LocalDateTime dateOfCreated;
-
-    @PrePersist
-    private void init() {
-        dateOfCreated = LocalDateTime.now();
-    }
-
     public void addImageToProduct(Image image) {
         image.setProduct(this);
         images.add(image);
